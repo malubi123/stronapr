@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moja Przeglądarka</title>
+    <title>Moja Przeglądarka - Strona Główna</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="search-container">
+    <div class="home-container">
         <div class="logo">
-            <img src="img/logo.jpg" alt="Logo" id="logoImage">
+            <img src="img/logo.jpg" alt="Logo">
         </div>
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Wpisz zapytanie...">
             <button id="searchButton"><img src="img/lupa.jpg" alt="Szukaj"></button>
         </div>
-        <div class="plus-button">
-            <button id="plusButton">+</button>
-        </div>
     </div>
-    <div id="results"></div>
-    <script src="js/script.js"></script>
+    <script>
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const query = document.getElementById('searchInput').value;
+            if (query) {
+                window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+            }
+        });
+    </script>
 </body>
 </html>
