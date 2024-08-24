@@ -4,7 +4,6 @@ document.getElementById('searchButton').addEventListener('click', function() {
     resultsDiv.innerHTML = ''; // Wyczyść poprzednie wyniki
 
     if (query) {
-        // Użycie API DuckDuckGo dla ogólnego wyszukiwania
         fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json`)
             .then(response => response.json())
             .then(data => {
@@ -12,7 +11,6 @@ document.getElementById('searchButton').addEventListener('click', function() {
                 const googleSitesResults = generalResults.filter(item => item.FirstURL && item.FirstURL.includes('sites.google.com'));
                 const otherResults = generalResults.filter(item => item.FirstURL && !item.FirstURL.includes('sites.google.com'));
 
-                // Najpierw dodajemy wyniki z Google Sites
                 googleSitesResults.forEach(item => {
                     if (item.Text) {
                         const resultItem = document.createElement('div');
@@ -22,7 +20,6 @@ document.getElementById('searchButton').addEventListener('click', function() {
                     }
                 });
 
-                // Następnie dodajemy pozostałe wyniki
                 otherResults.forEach(item => {
                     if (item.Text) {
                         const resultItem = document.createElement('div');
@@ -45,7 +42,6 @@ document.getElementById('searchButton').addEventListener('click', function() {
     }
 });
 
-// Dodajemy event listener do przycisku plus
 document.getElementById('plusButton').addEventListener('click', function() {
     window.location.href = "https://example.com"; // Tutaj wstaw adres strony, na którą ma przekierować przycisk
 });
