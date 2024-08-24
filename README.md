@@ -20,19 +20,18 @@ tutaj jeszcze nic nie ma ale potem się pojawi
 ## Użycie
 
 1. **Edytuj HTML/CSS/JavaScript**: Możesz dostosować kod źródłowy znajdujący się w plikach `index.html`, `css/styles.css`, `js/search.js` i `search.html`, aby pasował do Twoich potrzeb.
-2. **Dodaj własne obrazy**: Możesz zastąpić istniejące obrazy swoimi obrazami w folderze `/img`## Zrzuty Ekranu
+2. **Dodaj własne obrazy**: Możesz zastąpić istniejące obrazy swoimi obrazami w folderze `/img`
 
 Oto jak obecnie wygląda projekt:
 
-### Strona główna
-
 ![Podgląd](https://www.foteczkowo.pl/XMxcIZmUDStpPTa)
+#### przepraszamy za niedogodności takie jak to że nie możemy wyświetlić podglądu tego zdjęcia
 
 ## Dokumentacja
 
 Więcej informacji o używanych technologiach i przykładach konfiguracji znajdziesz w dokumentacji PDF:
 
-dokumentacja na razie nie dostępna
+# dokumentacja na razie nie dostępna
 
 - [Pobierz pełną dokumentację PDF]()
 
