@@ -42,6 +42,7 @@ document.getElementById('searchButton').addEventListener('click', function() {
     }
 });
 
+// Dodajemy event listener do przycisku plus
 document.getElementById('plusButton').addEventListener('click', function() {
     window.location.href = "https://example.com"; // Tutaj wstaw adres strony, na którą ma przekierować przycisk
 });
