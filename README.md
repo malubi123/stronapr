@@ -26,13 +26,13 @@ Oto jak obecnie wygląda projekt:
 
 ### Strona główna
 
-![Podgląd](https://imgur.com/oeqhb2C)
+![Podgląd](https://www.foteczkowo.pl/XMxcIZmUDStpPTa)
 
 ## Dokumentacja
 
 Więcej informacji o używanych technologiach i przykładach konfiguracji znajdziesz w dokumentacji PDF:
 
-dokumentacja na razie nie dostempna
+dokumentacja na razie nie dostępna
 
 - [Pobierz pełną dokumentację PDF]()
 
