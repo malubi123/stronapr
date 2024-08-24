@@ -31,7 +31,7 @@ Oto jak obecnie wygląda projekt:
 
 Więcej informacji o używanych technologiach i przykładach konfiguracji znajdziesz w dokumentacji PDF:
 
-# dokumentacja na razie nie dostępna
+### dokumentacja na razie nie dostępna
 
 - [Pobierz pełną dokumentację PDF]()
 
