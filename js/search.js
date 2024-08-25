@@ -4,34 +4,39 @@ document.getElementById('searchButton').addEventListener('click', function() {
     resultsDiv.innerHTML = ''; // Wyczyść poprzednie wyniki
 
     if (query) {
-        // Zdefiniuj różne warianty URL do przetestowania
-        const urlVariants = [
-            `http://${query}.com`,
-            `https://${query}.com`,
-            `http://www.${query}.com`,
-            `https://www.${query}.com`,
-            `http://${query}.org`,
-            `https://${query}.org`,
-            `http://www.${query}.org`,
-            `https://www.${query}.org`,
-            // Dodaj więcej wariantów w razie potrzeby
-        ];
+        fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json`)
+            .then(response => response.json())
+            .then(data => {
+                const generalResults = data.RelatedTopics || [];
+                const googleSitesResults = generalResults.filter(item => item.FirstURL && item.FirstURL.includes('sites.google.com'));
+                const otherResults = generalResults.filter(item => item.FirstURL && !item.FirstURL.includes('sites.google.com'));
 
-        // Sprawdź każdy wariant URL
-        urlVariants.forEach(url => {
-            fetch(url)
-                .then(response => {
-                    if (response.ok) {
+                googleSitesResults.forEach(item => {
+                    if (item.Text) {
                         const resultItem = document.createElement('div');
                         resultItem.classList.add('result-item');
-                        resultItem.innerHTML = `<p><a href="${url}" target="_blank">${url}</a></p>`;
+                        resultItem.innerHTML = `<h2>${item.Text}</h2><p><a href="${item.FirstURL}" target="_blank">${item.FirstURL}</a></p>`;
                         resultsDiv.appendChild(resultItem);
                     }
-                })
-                .catch(error => {
-                    console.error('Błąd:', error);
                 });
-        });
+
+                otherResults.forEach(item => {
+                    if (item.Text) {
+                        const resultItem = document.createElement('div');
+                        resultItem.classList.add('result-item');
+                        resultItem.innerHTML = `<h2>${item.Text}</h2><p><a href="${item.FirstURL}" target="_blank">${item.FirstURL}</a></p>`;
+                        resultsDiv.appendChild(resultItem);
+                    }
+                });
+
+                if (generalResults.length === 0) {
+                    resultsDiv.innerHTML = '<p>Brak wyników</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Błąd:', error);
+                resultsDiv.innerHTML = '<p>Wystąpił błąd podczas wyszukiwania</p>';
+            });
     } else {
         resultsDiv.innerHTML = '<p>Proszę wpisać zapytanie</p>';
     }
