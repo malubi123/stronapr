@@ -1,30 +1,36 @@
-// Dodajemy event listener do przycisku wyszukiwania
 document.getElementById('searchButton').addEventListener('click', function() {
     const query = document.getElementById('searchInput').value;
     const resultsDiv = document.getElementById('results');
     resultsDiv.innerHTML = ''; // Wyczyść poprzednie wyniki
 
     if (query) {
-        // Endpoint API Wayback Machine do wyszukiwania wersji stron
-        const apiUrl = `https://web.archive.org/cdx/search/cdx?url=${encodeURIComponent(query)}&output=json&fl=original&filter=statuscode:200`;
-
-        fetch(apiUrl)
+        fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json`)
             .then(response => response.json())
             .then(data => {
-                const records = data[1] || []; // [1] zawiera dane z wyników wyszukiwania
+                const generalResults = data.RelatedTopics || [];
+                const googleSitesResults = generalResults.filter(item => item.FirstURL && item.FirstURL.includes('sites.google.com'));
+                const otherResults = generalResults.filter(item => item.FirstURL && !item.FirstURL.includes('sites.google.com'));
 
-                if (records.length === 0) {
-                    resultsDiv.innerHTML = '<p>Brak wyników</p>';
-                } else {
-                    records.forEach(record => {
-                        const archivedUrl = `https://web.archive.org/web/${record[1]}/${record[0]}`;
-                        const originalUrl = record[0];
-
+                googleSitesResults.forEach(item => {
+                    if (item.Text) {
                         const resultItem = document.createElement('div');
                         resultItem.classList.add('result-item');
-                        resultItem.innerHTML = `<h2>${originalUrl}</h2><p><a href="${archivedUrl}" target="_blank">${archivedUrl}</a></p>`;
+                        resultItem.innerHTML = `<h2>${item.Text}</h2><p><a href="${item.FirstURL}" target="_blank">${item.FirstURL}</a></p>`;
                         resultsDiv.appendChild(resultItem);
-                    });
+                    }
+                });
+
+                otherResults.forEach(item => {
+                    if (item.Text) {
+                        const resultItem = document.createElement('div');
+                        resultItem.classList.add('result-item');
+                        resultItem.innerHTML = `<h2>${item.Text}</h2><p><a href="${item.FirstURL}" target="_blank">${item.FirstURL}</a></p>`;
+                        resultsDiv.appendChild(resultItem);
+                    }
+                });
+
+                if (generalResults.length === 0) {
+                    resultsDiv.innerHTML = '<p>Brak wyników</p>';
                 }
             })
             .catch(error => {
